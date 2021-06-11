@@ -215,7 +215,9 @@ if(ITK_WRAPPING)
 endif()
 # Create target to download data from the ITKData group.  This must come after
 # all tests have been added that reference the group, so we put it last.
-if(NOT TARGET ITKData)
+# External modules can define *module-name*_NO_ITKData prior to including this
+# file in order to skip the creation of the target.
+if(NOT TARGET ITKData AND NOT ${itk-module}_NO_ITKData)
   include(ExternalData)
   ExternalData_Add_Target(ITKData)
 endif()
